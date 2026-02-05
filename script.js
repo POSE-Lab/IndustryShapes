@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         offset: 100
     });
 
-    // --- Image Slider Logic ---
+    // --- Image Slider Logic (Gallery) ---
     const slides = document.querySelectorAll('.slide');
     const nextBtn = document.querySelector('.next-btn');
     const prevBtn = document.querySelector('.prev-btn');
@@ -40,13 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
     }
 
-    // Auto Advance (Optional)
-    setInterval(() => {
-        // goToSlide(currentSlide + 1); 
-    }, 5000);
-
-
-    // --- Comparison Slider Logic (Multi) ---
+    // --- Comparison Slider Logic (Drag Anywhere) ---
     const comparisonContainers = document.querySelectorAll('.img-comparison-container');
 
     comparisonContainers.forEach(container => {
@@ -56,66 +50,66 @@ document.addEventListener('DOMContentLoaded', () => {
         if (afterImageWrapper && sliderHandle) {
             // 1. Create the vertical line dynamically
             const sliderLine = document.createElement('div');
-            // Apply styles directly to ensure visibility without CSS file edits
             Object.assign(sliderLine.style, {
                 position: 'absolute',
                 top: '0',
                 bottom: '0',
                 width: '2px',
                 backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                left: '50%', // Start at center
+                left: '50%',
                 transform: 'translateX(-50%)',
-                zIndex: '20', // Ensure it's above images but below handle if needed
-                pointerEvents: 'none' // Let clicks pass through to the image
+                zIndex: '40', 
+                pointerEvents: 'none', // Allow clicks to pass through to container
+                boxShadow: '0 0 5px rgba(0,0,0,0.5)'
             });
             container.appendChild(sliderLine);
             
-            // Ensure handle is above the line
-            sliderHandle.style.zIndex = '30';
+            // Ensure handle is above everything but lets events bubble if needed
+            sliderHandle.style.zIndex = '50';
+            sliderHandle.style.pointerEvents = 'none'; // distinct handle clicks not strictly needed if container handles all
 
             let isDragging = false;
 
             const moveSlider = (e) => {
+                // Prevent calculation if we aren't "active" (though logic below handles this)
+                // We actually want moveSlider to run ONCE on click, even if not moving yet.
+                
                 const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                 const rect = container.getBoundingClientRect();
                 let x = clientX - rect.left;
                 
+                // Boundaries
                 if (x < 0) x = 0;
                 if (x > rect.width) x = rect.width;
                 
                 const percentage = (x / rect.width) * 100;
                 const clipAmount = 100 - percentage;
                 
-                // Update Image Clip
+                // Update CSS
                 afterImageWrapper.style.clipPath = `inset(0 ${clipAmount}% 0 0)`;
-                
-                // Update Handle Position
                 sliderHandle.style.left = `${percentage}%`;
-                
-                // Update Line Position
                 sliderLine.style.left = `${percentage}%`;
             };
 
-            // 2. Modified Logic: Only start drag on Handle click, not Container click
             const startDrag = (e) => {
                 isDragging = true;
-                e.preventDefault(); // Prevent selection behavior
+                e.preventDefault(); // Stop text selection
+                moveSlider(e); // Immediately jump to where the user clicked
             };
 
-            // Attach start listeners ONLY to the handle
-            sliderHandle.addEventListener('mousedown', startDrag);
-            sliderHandle.addEventListener('touchstart', startDrag);
+            // 2. Attach start listeners to the WHOLE CONTAINER
+            container.addEventListener('mousedown', startDrag);
+            container.addEventListener('touchstart', startDrag);
             
-            // Stop dragging on mouse up
+            // 3. Global Stop Listeners
             window.addEventListener('mouseup', () => isDragging = false);
             window.addEventListener('touchend', () => isDragging = false);
 
-            // Handle movement (global to avoid losing focus if mouse leaves container)
+            // 4. Global Move Listeners
             window.addEventListener('mousemove', (e) => {
                 if (!isDragging) return;
                 moveSlider(e);
             });
-            
             window.addEventListener('touchmove', (e) => {
                 if (!isDragging) return;
                 moveSlider(e);
@@ -125,21 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
             afterImageWrapper.style.clipPath = `inset(0 50% 0 0)`;
             sliderHandle.style.left = `50%`;
             sliderLine.style.left = `50%`;
-            
-            // Reset on leave (Optional - usually better to disable this for drag-only UX, 
-            // but keeping per original unless requested to remove. 
-            // If you want the slider to stay where you left it, remove this block).
-            container.addEventListener('mouseleave', () => {
-                isDragging = false;
-                // afterImageWrapper.style.clipPath = `inset(0 50% 0 0)`;
-                // sliderHandle.style.left = `50%`;
-                // sliderLine.style.left = `50%`;
-            });
         }
     });
 
     // --- Dynamic Background Blur ---
-    // Update CSS variable for body pseudo-element
     window.addEventListener('scroll', () => {
         const scrollValues = window.scrollY;
         const maxScroll = 600;
@@ -179,19 +162,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const nextIndex = (currentIndex + 1) % images.length;
                 const nextImageSrc = images[nextIndex];
                 
-                // Get current image
                 const currentImg = wrapper.querySelector('img:last-of-type'); 
                 
-                // Create New Image
                 const newImg = document.createElement('img');
                 newImg.src = nextImageSrc;
                 newImg.className = 'stack-img slide-in-from-right animating';
                 wrapper.appendChild(newImg);
                 
-                // Force Reflow
                 void newImg.offsetWidth;
                 
-                // Start Animation
                 requestAnimationFrame(() => {
                     newImg.style.transform = 'translateX(0)';
                     
@@ -201,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
                 
-                // Clean up
                 setTimeout(() => {
                     if (currentImg && currentImg.parentNode === wrapper) {
                         wrapper.removeChild(currentImg);
@@ -228,14 +206,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalImg = modal.querySelector('.modal-content');
     const closeModal = modal.querySelector('.close-modal');
 
-    // Logic to open modal
     const openModal = (src) => {
         modalImg.src = src;
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
     };
 
-    // Attach to existing images
     document.querySelectorAll('.gallery-img, .dist-img').forEach(img => {
         img.addEventListener('click', () => openModal(img.src));
     });
@@ -256,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-}); // End of DOMContentLoaded
+});
 
 function copyCitation() {
     const codeBlock = document.getElementById('bibtex');
