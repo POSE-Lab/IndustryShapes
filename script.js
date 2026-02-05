@@ -46,73 +46,100 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5000);
 
 
-    // --- Comparison Slider Logic ---
-    const comparisonContainer = document.querySelector('.img-comparison-container');
-    const afterImageWrapper = document.querySelector('.after-image');
-    const sliderHandle = document.querySelector('.slider-handle');
+    // --- Comparison Slider Logic (Multi) ---
+    const comparisonContainers = document.querySelectorAll('.img-comparison-container');
 
-    if (comparisonContainer && afterImageWrapper && sliderHandle) {
-        let isDragging = false;
+    comparisonContainers.forEach(container => {
+        const afterImageWrapper = container.querySelector('.after-image');
+        const sliderHandle = container.querySelector('.slider-handle');
 
-        const moveSlider = (e) => {
-            // Get proper x coordinate depending on event type (mouse or touch)
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        if (afterImageWrapper && sliderHandle) {
+            // 1. Create the vertical line dynamically
+            const sliderLine = document.createElement('div');
+            // Apply styles directly to ensure visibility without CSS file edits
+            Object.assign(sliderLine.style, {
+                position: 'absolute',
+                top: '0',
+                bottom: '0',
+                width: '2px',
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                left: '50%', // Start at center
+                transform: 'translateX(-50%)',
+                zIndex: '20', // Ensure it's above images but below handle if needed
+                pointerEvents: 'none' // Let clicks pass through to the image
+            });
+            container.appendChild(sliderLine);
             
-            const rect = comparisonContainer.getBoundingClientRect();
-            let x = clientX - rect.left;
-            
-            // Constrain x within container bounds
-            if (x < 0) x = 0;
-            if (x > rect.width) x = rect.width;
-            
-            const percentage = (x / rect.width) * 100;
-            
-            // Use clip-path to reveal/hide image without squashing
-            // We want to show the left X% of the image.
-            // So we clip the RIGHT side.
-            // inset(top right bottom left) -> inset(0 (100-P)% 0 0)
-            const clipAmount = 100 - percentage;
-            afterImageWrapper.style.clipPath = `inset(0 ${clipAmount}% 0 0)`;
-            
-            sliderHandle.style.left = `${percentage}%`;
-        };
+            // Ensure handle is above the line
+            sliderHandle.style.zIndex = '30';
 
-        sliderHandle.addEventListener('mousedown', () => isDragging = true);
-        sliderHandle.addEventListener('touchstart', () => isDragging = true);
+            let isDragging = false;
 
-        window.addEventListener('mouseup', () => isDragging = false);
-        window.addEventListener('touchend', () => isDragging = false);
+            const moveSlider = (e) => {
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const rect = container.getBoundingClientRect();
+                let x = clientX - rect.left;
+                
+                if (x < 0) x = 0;
+                if (x > rect.width) x = rect.width;
+                
+                const percentage = (x / rect.width) * 100;
+                const clipAmount = 100 - percentage;
+                
+                // Update Image Clip
+                afterImageWrapper.style.clipPath = `inset(0 ${clipAmount}% 0 0)`;
+                
+                // Update Handle Position
+                sliderHandle.style.left = `${percentage}%`;
+                
+                // Update Line Position
+                sliderLine.style.left = `${percentage}%`;
+            };
 
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            moveSlider(e);
-        });
-        
-        window.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            moveSlider(e);
-        });
-        
-        // Initial State (50%)
-        afterImageWrapper.style.clipPath = `inset(0 50% 0 0)`;
-        sliderHandle.style.left = `50%`;
+            // 2. Modified Logic: Only start drag on Handle click, not Container click
+            const startDrag = (e) => {
+                isDragging = true;
+                e.preventDefault(); // Prevent selection behavior
+            };
 
-        comparisonContainer.addEventListener('mousedown', (e) => {
-             moveSlider(e);
-             isDragging = true;
-        });
-    }
+            // Attach start listeners ONLY to the handle
+            sliderHandle.addEventListener('mousedown', startDrag);
+            sliderHandle.addEventListener('touchstart', startDrag);
+            
+            // Stop dragging on mouse up
+            window.addEventListener('mouseup', () => isDragging = false);
+            window.addEventListener('touchend', () => isDragging = false);
+
+            // Handle movement (global to avoid losing focus if mouse leaves container)
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                moveSlider(e);
+            });
+            
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                moveSlider(e);
+            });
+            
+            // Initial State
+            afterImageWrapper.style.clipPath = `inset(0 50% 0 0)`;
+            sliderHandle.style.left = `50%`;
+            sliderLine.style.left = `50%`;
+            
+            // Reset on leave (Optional - usually better to disable this for drag-only UX, 
+            // but keeping per original unless requested to remove. 
+            // If you want the slider to stay where you left it, remove this block).
+            container.addEventListener('mouseleave', () => {
+                isDragging = false;
+                // afterImageWrapper.style.clipPath = `inset(0 50% 0 0)`;
+                // sliderHandle.style.left = `50%`;
+                // sliderLine.style.left = `50%`;
+            });
+        }
+    });
 
     // --- Dynamic Background Blur ---
-    const bgElement = document.querySelector('body::before'); 
-    // Wait, we can't select pseudo-elements. 
-    // We switched to using body::before, so we actually need to change the CSS variable or class.
-    // Or we should have used a real element.
-    // I previously tried to change index.html to add #dynamic-bg but reverted it?
-    // Let's check style.css again. I DID edit style.css to use body::before.
-    // So JS cannot control it directly easily unless we use CSS variables.
-    
-    // Let's attach a variable to body
+    // Update CSS variable for body pseudo-element
     window.addEventListener('scroll', () => {
         const scrollValues = window.scrollY;
         const maxScroll = 600;
@@ -152,10 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const nextIndex = (currentIndex + 1) % images.length;
                 const nextImageSrc = images[nextIndex];
                 
-                // Get current image (the one visible)
+                // Get current image
                 const currentImg = wrapper.querySelector('img:last-of-type'); 
-                // Note: if animation is fast, there might be multiple. 
-                // But usually we clean up. safely: selector :not(.slide-out-to-left)
                 
                 // Create New Image
                 const newImg = document.createElement('img');
@@ -163,36 +188,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 newImg.className = 'stack-img slide-in-from-right animating';
                 wrapper.appendChild(newImg);
                 
-                // Force Reflow to ensure start position is applied
+                // Force Reflow
                 void newImg.offsetWidth;
                 
                 // Start Animation
                 requestAnimationFrame(() => {
-                    // Move New Image In
                     newImg.style.transform = 'translateX(0)';
                     
-                    // Move Old Image Out
                     if (currentImg) {
                         currentImg.classList.add('animating');
                         currentImg.classList.add('slide-out-to-left');
                     }
                 });
                 
-                // Clean up after animation (0.8s matches CSS)
+                // Clean up
                 setTimeout(() => {
                     if (currentImg && currentImg.parentNode === wrapper) {
                         wrapper.removeChild(currentImg);
                     }
                     newImg.classList.remove('slide-in-from-right', 'animating');
-                    newImg.style.transform = ''; // Clear inline transform
+                    newImg.style.transform = ''; 
                 }, 800);
                 
                 currentIndex = nextIndex;
                 
-            }, 3000); // Cycle every 3 seconds
+            }, 3000); 
         }
     });
-});
+
+    // --- Image Modal Logic ---
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.innerHTML = `
+        <div class="close-modal"><i class="fa-solid fa-xmark"></i></div>
+        <img class="modal-content" src="" alt="Zoomed Image">
+    `;
+    document.body.appendChild(modal);
+
+    const modalImg = modal.querySelector('.modal-content');
+    const closeModal = modal.querySelector('.close-modal');
+
+    // Logic to open modal
+    const openModal = (src) => {
+        modalImg.src = src;
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    };
+
+    // Attach to existing images
+    document.querySelectorAll('.gallery-img, .dist-img').forEach(img => {
+        img.addEventListener('click', () => openModal(img.src));
+    });
+    
+    const hideModal = () => {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    };
+
+    closeModal.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) hideModal();
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+            hideModal();
+        }
+    });
+
+}); // End of DOMContentLoaded
 
 function copyCitation() {
     const codeBlock = document.getElementById('bibtex');

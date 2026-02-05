@@ -34,7 +34,7 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: url('assets/CRF_00005.jpg') no-repeat center center/cover;
+  background: url("assets/CRF_00005.jpg") no-repeat center center/cover;
   /* filter: blur(4px) brightness(0.4); */
   filter: blur(var(--bg-blur, 0px)) brightness(0.4);
   z-index: -2; /* Behind everything */
@@ -117,186 +117,193 @@ h3 {
 
 /* Features Strip (Replacement for Bento) */
 .features-strip {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 100%;
-    max-width: 600px; /* Reduced from 800px */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px; /* Reduced from 800px */
 }
 
 /* Make transparent but layout strictly */
 .feature-card {
-    background: rgba(16, 23, 41, 0.4); 
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1rem; /* Reduced from 1.5rem */
-    border-radius: 16px;
-    backdrop-filter: blur(5px);
-    transition: transform 0.3s;
+  background: rgba(16, 23, 41, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem; /* Reduced from 1.5rem */
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s;
 }
 
 .feature-card:hover {
-    transform: translateX(-5px);
-    border-color: var(--accent-primary);
+  transform: translateX(-5px);
+  border-color: var(--accent-primary);
 }
 
 /* Specific tighter padding for Real Env and Onboarding per request */
 .features-strip > .feature-card:nth-child(2),
 .features-strip > .feature-card:nth-child(3) {
-    padding-bottom: 0.8rem;
+  padding-bottom: 0.8rem;
 }
 
 .feature-card h4 {
-    color: var(--accent-primary);
-    margin-bottom: 0.75rem; /* Reduced from 1rem */
-    font-size: 1rem; /* Reduced from 1.1rem */
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    padding-bottom: 0.5rem;
+  color: var(--accent-primary);
+  margin-bottom: 0.75rem; /* Reduced from 1rem */
+  font-size: 1rem; /* Reduced from 1.1rem */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 0.5rem;
 }
 
 /* 3D Models Row */
 .model-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: nowrap; /* Force single line */
-    overflow: hidden; /* Disable scroll */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap; /* Force single line */
+  overflow: hidden; /* Disable scroll */
 }
 .model-row img {
-    height: 100px; /* Reduced from 120px */
-    max-width: 100px; /* Reduced from 120px */
-    width: auto;
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6));
-    transition: transform 0.3s;
+  height: 100px; /* Reduced from 120px */
+  max-width: 100px; /* Reduced from 120px */
+  width: auto;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.6));
+  transition: transform 0.3s;
 }
 .model-row img:hover {
-    transform: scale(1.3) rotate(10deg);
+  transform: scale(1.3) rotate(10deg);
 }
 
 /* Real Env Stacked Grid */
 .real-grid-stacked {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Changed to 2 columns */
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Changed to 2 columns */
+  gap: 1rem;
 }
 
 /* Stack layers - HIDDEN per request (but structure kept for animation logic) */
-.stack-bg, .stack-mid {
-    display: none;
+.stack-bg,
+.stack-mid {
+  display: none;
 }
 
 .onboarding-card .real-grid-stacked {
-    /* Ensure onboarding grid respects the gap */
+  /* Ensure onboarding grid respects the gap */
 }
 
 .stacked-card {
-    position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
 }
 
 .card-stack {
-    position: relative;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3; /* Matches Real Env images (640x480) */
-    margin-bottom: 0.5rem;
+  position: relative;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3; /* Matches Real Env images (640x480) */
+  margin-bottom: 0.5rem;
 }
 
 /* Onboarding specific: Match GIF Aspect Ratio */
 .onboarding-card .card-stack {
-    height: auto;
-    aspect-ratio: 4 / 3; /* Matches generated 640x480 GIFs */
+  height: auto;
+  aspect-ratio: 4 / 3; /* Matches generated 640x480 GIFs */
 }
 
 /* Updated Wrapper Style for clean single image look */
 .stack-front-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    border-radius: 12px; /* Smoother rounds */
-    overflow: hidden; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Softer shadow */
-    transition: transform 0.3s ease;
-    /* Removed background since we now fill with image */
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  border-radius: 12px; /* Smoother rounds */
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Softer shadow */
+  transition: transform 0.3s ease;
+  /* Removed background since we now fill with image */
 }
 
 .stacked-card:hover .stack-front-wrapper {
-    transform: translateY(-2px); /* Subtle lift */
+  transform: translateY(-2px); /* Subtle lift */
 }
 
 .stack-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Fill the container perfectly */
-    border-radius: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Fill the container perfectly */
+  border-radius: 12px;
 }
 
 /* Slide Entry/Exit Classes */
 .slide-enter {
-    transform: translateX(100%);
-    transition: transform 0.8s ease-in-out;
+  transform: translateX(100%);
+  transition: transform 0.8s ease-in-out;
 }
 
 .slide-enter-active {
-    transform: translateX(0);
+  transform: translateX(0);
 }
 
 .slide-exit {
-    transform: translateX(0);
-    transition: transform 0.8s ease-in-out;
-    z-index: 1; /* Below the entering one? or Above? Slide left usually means follow. */
+  transform: translateX(0);
+  transition: transform 0.8s ease-in-out;
+  z-index: 1; /* Below the entering one? or Above? Slide left usually means follow. */
 }
 
 /* If sliding LEFT: New comes from Right (100%), Old goes Left (-100%) */
 .slide-in-from-right {
-    transform: translateX(100%);
-    z-index: 10;
+  transform: translateX(100%);
+  z-index: 10;
 }
 .slide-out-to-left {
-    transform: translateX(-100%);
-    z-index: 9;
+  transform: translateX(-100%);
+  z-index: 9;
 }
 
 .animating {
-    transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Onboarding GIF */
 .gif-wrapper {
-    position: relative;
-    width: 100%;
-    height: 200px; /* Reduced from 250px */
-    border-radius: 12px;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 200px; /* Reduced from 250px */
+  border-radius: 12px;
+  overflow: hidden;
 }
 .gif-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .live-badge {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: var(--accent-highlight);
-    color: #000;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 4px;
-    animation: pulse 2s infinite;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--accent-highlight);
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.7; }
-    100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 /* Navigation */
@@ -395,10 +402,19 @@ section {
 }
 
 .affiliation {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 2rem;
   color: var(--text-muted);
   font-size: 1.1rem;
   font-weight: 500;
+}
+
+.affiliation-logo {
+  height: 80px; /* Increased size per request */
+  width: auto;
+  filter: invert(1); /* Make white for dark background */
 }
 
 .author {
@@ -528,6 +544,338 @@ section {
   letter-spacing: 0.05em;
 }
 
+/* Content Grid for Text Sections */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.vertical-stack {
+  grid-template-columns: 1fr !important;
+}
+
+.content-card h4 {
+  color: var(--accent-secondary);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.content-card p {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.content-card ul {
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+.content-card li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.content-card li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: var(--accent-primary);
+}
+
+.content-grid-vertical {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+/* 3x5 Grid for Gallery */
+.gallery-grid-15 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .gallery-grid-15 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.small-text {
+  font-size: 0.85rem !important;
+  opacity: 0.8;
+  border-top: 1px solid var(--border-glass);
+  padding-top: 1rem;
+}
+
+/* Glass Tables */
+.tables-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.glass-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.glass-table th,
+.glass-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-table th {
+  color: var(--accent-primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.glass-table td {
+  color: var(--text-main);
+}
+
+.glass-table .total-row td {
+  font-weight: 700;
+  color: var(--accent-highlight);
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Comparison Slider Styles */
+.img-comparison-container {
+    position: relative;
+    width: 100%;
+    /* overflow: hidden;  -- Keep hidden for border radius */
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: ew-resize;
+    isolation: isolate; 
+}
+
+.img-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* changed to cover to fill container */
+    display: block;
+}
+
+.before-image {
+    position: relative; /* Props open the container */
+    z-index: 1;
+}
+
+.after-image {
+    position: absolute; /* Overlays */
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%; /* Ensure full width available for clipping */
+}
+
+/* Slider Handle - flattened structure */
+.slider-handle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%; /* Explicit height */
+    width: 4px;
+    background: var(--accent-primary);
+    z-index: 100;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    pointer-events: none; /* Container handles events */
+}
+
+.slider-handle i {
+    background: #fff;
+    color: var(--accent-primary);
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    z-index: 101;
+    /* Ensure icon sits on top of line */
+    position: relative;
+    flex-shrink: 0; /* Prevent squishing */
+}
+
+/* Distribution Visuals */
+.distribution-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Stack vertically */
+  gap: 2rem;
+  margin-top: 2rem;
+  max-width: 100%; /* Allow full width */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dist-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dist-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-glass);
+}
+
+.dist-caption {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Gallery Grids */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.gallery-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.gallery-img:hover {
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  border-color: var(--accent-primary);
+}
+
+.compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Image Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Lighter dark overlay */
+  backdrop-filter: blur(15px); /* Stronger blur */
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.5);
+  transform: scale(0.5);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal.show .modal-content {
+  transform: scale(1);
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.close-modal {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 2001;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.close-modal:hover {
+  background: var(--accent-primary);
+  color: #000;
+}
+
+/* GIF Row */
+.gif-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.gif-img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border-glass);
+}
+
 /* Gallery Slider */
 .slider-container {
   position: relative;
@@ -579,34 +927,34 @@ section {
 
 /* Slider Dots */
 .slider-dots {
-    display: flex;
-    justify-content: center;
-    gap: 0.8rem;
-    position: absolute;
-    bottom: 1.5rem;
-    left: 0;
-    width: 100%;
-    z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 .slider-dot {
-    width: 12px;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.2);
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .slider-dot:hover {
-    background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .slider-dot.active {
-    background: var(--accent-primary);
-    transform: scale(1.2);
-    box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+  background: var(--accent-primary);
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
 }
 
 .slider-btn {
@@ -676,7 +1024,7 @@ section {
   /* border-right: 2px solid var(--accent-primary); */
   z-index: 2;
   /* Initial state handled by JS, but default here */
-  clip-path: inset(0 50% 0 0); 
+  clip-path: inset(0 50% 0 0);
 }
 
 .slider-handle {

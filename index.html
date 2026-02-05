@@ -34,11 +34,11 @@
 
     <header>
       <nav class="glass-nav">
-        <div class="logo">IndustryShapes</div>
+        <div class="logo">IndustryShapes dataset</div>
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
+          <li><a href="#structure">Structure</a></li>
           <li><a href="#gallery">Gallery</a></li>
-          <!-- <li><a href="#structure">Structure</a></li> -->
           <li><a href="#citation">Citation</a></li>
         </ul>
       </nav>
@@ -48,22 +48,23 @@
       <section class="hero">
         <div class="hero-content" data-aos="fade-up">
           <span class="conference-tag">ICRA 2026</span>
-          <h1 class="gradient-text">IndustryShapes</h1>
+          <h1 class="gradient-text">IndustryShapes dataset</h1>
           <p style="font-weight: bold;" class="subtitle">
             An RGB-D Benchmark dataset for 6D object pose estimation of
             industrial assembly components and tools
           </p>
 
           <div class="authors">
-            <a href="#" style="color: white;" class="author">Panagiotis Sapoutzoglou</a>
-            <a href="#" style="color: white;" class="author">Orestis Vaggelis</a>
-            <a href="#" style="color: white;" class="author">Athina Zacharia</a>
+            <a href="https://scholar.google.com/citations?user=H4UjPi4AAAAJ&hl=en" style="color: white;" class="author">Panagiotis Sapoutzoglou</a>
+            <a href="https://scholar.google.com/citations?user=vpaU--QAAAAJ&hl=en" style="color: white;" class="author">Orestis Vaggelis</a>
+            <a href="https://scholar.google.com/citations?user=J88N_bMAAAAJ&hl=en" style="color: white;" class="author">Athina Zacharia</a>
             <a href="#" style="color: white;" class="author">Evangelos Sartinas</a>
-            <a href="#" style="color: white;" class="author">Maria Pateraki</a>
+            <a href="http://www.mpateraki.org/" style="color: white;" class="author">Maria Pateraki</a>
           </div>
           
           <div class="affiliation">
-            National Technical University of Athens, Greece
+            <img src="assets/NTUA.png" alt="NTUA Logo" class="affiliation-logo">
+            <span>National Technical University of Athens, Greece</span>
           </div>
 
           <div class="action-buttons">
@@ -73,7 +74,7 @@
             <a href="#" class="btn btn-secondary"
               ><i class="fa-brands fa-github"></i> Code</a
             >
-            <a href="https://huggingface.co/datasets/IndustryShapes" class="btn btn-accent"
+            <a href="https://huggingface.co/datasets/POSE-Lab/IndustryShapes" class="btn btn-accent"
               ><i class="fa-solid fa-database"></i> Dataset (Hugging Face)</a
             >
           </div>
@@ -83,7 +84,7 @@
             
             <!-- 3D Models Card -->
             <div class="feature-card glass-panel">
-                <h4>Challenging Industry related textured 3D Models</h4>
+                <h4>Industrial textured 3D Models</h4>
                 <div class="model-row">
                     <img src="assets/renders/obj_1_render_crop.png" alt="Obj 1">
                     <img src="assets/renders/obj_2_render_crop.png" alt="Obj 2">
@@ -95,7 +96,7 @@
 
             <!-- Real Environment -->
             <div class="feature-card glass-panel">
-                <h4>Real Industrial Environment</h4>
+                <h4>Data from Real Industrial Environment</h4>
                 <div class="real-grid-stacked">
                     <!-- Multiple Instances Stack -->
                     <div class="stacked-card" data-category="multi">
@@ -163,7 +164,7 @@
           <h2 class="section-title" data-aos="fade-right">Overview</h2>
           <div class="glass-panel" data-aos="fade-up">
             <p>
-              <strong>IndustryShapes</strong> is a novel benchmark dataset
+              <strong>IndustryShapes</strong> is a new benchmark dataset
               tailored for 6D object pose estimation in industrial settings.
               Targeting the challenges of textureless objects, reflective
               surfaces, and complex assembly tools, this dataset provides
@@ -187,7 +188,65 @@
                 <span class="stat-number">23</span>
                 <span class="stat-label">Total Scenes</span>
               </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="structure" class="structure-section">
+        <div class="container">
+          <h2 class="section-title" data-aos="fade-right">Structure & Composition</h2>
+          
+          <div class="content-grid" data-aos="fade-up">
+            <!-- Classic Set -->
+            <div class="glass-panel content-card" style="padding: 2rem;">
+              <h4><i class="fa-solid fa-box-archive"></i> Classic Set</h4>
+              <p>
+                The <strong>Classic Set</strong> supports instance-level pose estimation with 21 scenes (13 train, 8 test), focused on industrial relevance.
+              </p>
+              <ul>
+                <li><strong>Real Industrial Scenes:</strong> Assembly settings with varying complexity (single to cluttered/occluded).</li>
+                <li><strong>Lab Capture:</strong> Systematic sampling using a turn-table setup.</li>
+                <li><strong>Synthetic Data:</strong> OpenGL-rendered images with photorealistic textures.</li>
+              </ul>
+              <p class="small-text">
+                Captured with Intel RealSense D455 (640x480).
+              </p>
             </div>
+
+            <!-- Extended Set -->
+            <div class="glass-panel content-card" style="padding: 2rem;">
+              <h4><i class="fa-solid fa-expand"></i> Extended Set</h4>
+              <p>
+                The <strong>Extended Set</strong> supports the benchmarking of novel pose estimation methods (model-based & model-free).
+              </p>
+              <ul>
+                <li><strong>Onboarding Sequences:</strong> 10 RGB-D static onboarding sequences (2 per object).</li>
+                <li><strong>Challenging Office scenes:</strong> Three scenes captured in an office environment with unconstrained lighting, distractors, occlusions and diverse viewpoints featuring all objects.</li>
+              </ul>
+              <p class="small-text">
+                Captured with Intel RealSense D405 for close-range depth. Adds ~10.3k annotated instances and dense camera viewpoints.
+              </p>
+            </div>
+          </div>
+
+          <!-- Qualitative Results & Distributions -->
+          <div class="content-grid" style="grid-template-columns: 1fr;" data-aos="fade-up">
+               <div class="glass-panel content-card" style="padding: 2rem;">
+                  <h4><i class="fa-solid fa-chart-pie"></i> Distributions & Analysis</h4>
+                  <p>
+                      The dataset features a balanced distribution of object-to-camera distances (mostly 400-800mm) and dense camera orientation coverage.
+                  </p>
+                  <div class="distribution-grid">
+                      <div class="dist-item">
+                           <img src="assets/total_mollweide.png" alt="Orientation Distribution" class="dist-img">
+                           <span class="dist-caption">Camera Orientation Distribution</span>
+                      </div>
+                      <div class="dist-item">
+                           <img src="assets/distance_distr.png" alt="Distance Distribution" class="dist-img">
+                           <span class="dist-caption">Object-to-Camera Distance Distribution</span>
+                      </div>
+                  </div>
+               </div>
           </div>
         </div>
       </section>
@@ -197,50 +256,114 @@
           <h2 class="section-title" data-aos="fade-right">Dataset Visuals</h2>
 
           <!-- Image Slider -->
-          <div class="slider-container" data-aos="zoom-in">
-            <div class="slider-wrapper">
-              <div class="slide active">
-                <img src="assets/scene_03_rgb.png" alt="Industrial Part 1">
-                <div class="slide-caption">Real Industrial Environment - Multi-Instance (Scene 3)</div>
-              </div>
-              <div class="slide">
-                <img src="assets/scene_03_depth.png" alt="Industrial Part 2">
-                <div class="slide-caption">Industrial Depth Map (Scene 3)</div>
-              </div>
-              <div class="slide">
-                <img src="assets/scene_15_rgb.png" alt="Industrial Part 3">
-                <div class="slide-caption">Onboarding Sequence (Training Scene 15)</div>
-              </div>
-              <div class="slide">
-                <img src="assets/scene_09_rgb.png" alt="Industrial Part 4">
-                <div class="slide-caption">Office Environment - Cluttered & Unconstrained (Scene 9)</div>
+          <div class="content-grid vertical-stack" data-aos="fade-up">
+            <!-- Classic Set Visuals -->
+            <div class="glass-panel content-card" style="padding: 2rem;">
+              <h4><i class="fa-solid fa-camera"></i> Classic Set Samples</h4>
+              <p></p>
+              <div class="gallery-grid-15">
+                <img src="assets/gallery/classic_gal_1.png" class="gallery-img" alt="Classic 1">
+                <img src="assets/gallery/classic_gal_2.png" class="gallery-img" alt="Classic 2">
+                <img src="assets/gallery/classic_gal_3.png" class="gallery-img" alt="Classic 3">
+                <img src="assets/gallery/classic_gal_4.png" class="gallery-img" alt="Classic 4">
+                <img src="assets/gallery/classic_gal_5.png" class="gallery-img" alt="Classic 5">
+                <img src="assets/gallery/classic_gal_6.png" class="gallery-img" alt="Classic 6">
+                <img src="assets/gallery/classic_gal_7.png" class="gallery-img" alt="Classic 7">
+                <img src="assets/gallery/classic_gal_8.png" class="gallery-img" alt="Classic 8">
+                <img src="assets/gallery/classic_gal_9.png" class="gallery-img" alt="Classic 9">
+                <img src="assets/gallery/classic_gal_10.png" class="gallery-img" alt="Classic 10">
+                <img src="assets/gallery/classic_gal_11.png" class="gallery-img" alt="Classic 11">
+                <img src="assets/gallery/classic_gal_12.png" class="gallery-img" alt="Classic 12">
+                <img src="assets/gallery/classic_gal_13.png" class="gallery-img" alt="Classic 13">
+                <img src="assets/gallery/classic_gal_14.png" class="gallery-img" alt="Classic 14">
+                <img src="assets/gallery/classic_gal_15.png" class="gallery-img" alt="Classic 15">
               </div>
             </div>
-            <button class="slider-btn prev-btn">
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <button class="slider-btn next-btn">
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-            <div class="slider-dots"></div>
+
+            <!-- Extended Set Visuals -->
+            <div class="glass-panel content-card" style="padding: 2rem;">
+              <h4><i class="fa-solid fa-camera-rotate"></i> Extended Set Samples</h4>
+              <p></p>
+               <div class="gallery-grid-15">
+                <img src="assets/gallery/extended_gal_1.png" class="gallery-img" alt="Extended 1">
+                <img src="assets/gallery/extended_gal_2.png" class="gallery-img" alt="Extended 2">
+                <img src="assets/gallery/extended_gal_3.png" class="gallery-img" alt="Extended 3">
+                <img src="assets/gallery/extended_gal_4.png" class="gallery-img" alt="Extended 4">
+                <img src="assets/gallery/extended_gal_5.png" class="gallery-img" alt="Extended 5">
+                <img src="assets/gallery/extended_gal_6.png" class="gallery-img" alt="Extended 6">
+                <img src="assets/gallery/extended_gal_7.png" class="gallery-img" alt="Extended 7">
+                <img src="assets/gallery/extended_gal_8.png" class="gallery-img" alt="Extended 8">
+                <img src="assets/gallery/extended_gal_9.png" class="gallery-img" alt="Extended 9">
+                <img src="assets/gallery/extended_gal_10.png" class="gallery-img" alt="Extended 10">
+                <img src="assets/gallery/extended_gal_11.png" class="gallery-img" alt="Extended 11">
+                <img src="assets/gallery/extended_gal_12.png" class="gallery-img" alt="Extended 12">
+                <img src="assets/gallery/extended_gal_13.png" class="gallery-img" alt="Extended 13">
+                <img src="assets/gallery/extended_gal_14.png" class="gallery-img" alt="Extended 14">
+                <img src="assets/gallery/extended_gal_15.png" class="gallery-img" alt="Extended 15">
+              </div>
+              
+              <!-- Onboarding GIFs -->
+              <h5 style="margin-top: 2rem; color: var(--accent-secondary); text-align: center; font-size: 1.2rem;">RGBD-Onboarding Sequences</h5>
+              <div class="gif-grid">
+                  <img src="assets/gallery/onboarding_obj_1.gif" class="gif-img" alt="Onboarding Object 1">
+                  <img src="assets/gallery/onboarding_obj_2.gif" class="gif-img" alt="Onboarding Object 2">
+                  <img src="assets/gallery/onboarding_obj_3.gif" class="gif-img" alt="Onboarding Object 3">
+                  <img src="assets/gallery/onboarding_obj_4.gif" class="gif-img" alt="Onboarding Object 4">
+                  <img src="assets/gallery/onboarding_obj_5.gif" class="gif-img" alt="Onboarding Object 5">
+              </div>
+            </div>
           </div>
 
-          <!-- Annotation Comparison (Interactive) -->
-          <div class="comparison-block" data-aos="fade-up">
-            <h3>Annotation Quality</h3>
-            <p>Drag the slider to see the 6D pose overlay.</p>
-            <div class="img-comparison-container">
-              <div class="img-wrapper before-image">
-                <img src="assets/scene_03_rgb.png" alt="RGB">
-              </div>
-              <div class="img-wrapper after-image">
-                <img src="assets/scene_03_pose.png" alt="Pose Overlay">
-              </div>
-              <div class="comparison-slider">
-                <div class="slider-handle">
-                  <i class="fa-solid fa-arrows-left-right"></i>
+          <!-- Comparison Sliders -->
+          <h3 class="subsection-title" style="text-align: center; margin-top: 4rem;" data-aos="fade-up">Highlighted Cases</h3>
+          
+          <div class="compare-grid" data-aos="fade-up">
+            <!-- Comparison 1 -->
+            <div class="comparison-block" style="margin-top: 0;">
+                <div class="img-comparison-container" style="height: 300px;">
+                  <div class="img-wrapper before-image">
+                    <img src="assets/gallery/slider_1_rgb.png" alt="RGB">
+                  </div>
+                  <div class="img-wrapper after-image">
+                    <img src="assets/gallery/slider_1_pose.png" alt="Pose Overlay">
+                  </div>
+                  <div class="slider-handle">
+                    <i class="fa-solid fa-arrows-left-right"></i>
+                  </div>
                 </div>
-              </div>
+                <p style="margin-top: 1rem; color: var(--text-muted);">Case 1: Similar looking objects</p>
+            </div>
+
+            <!-- Comparison 2 -->
+             <div class="comparison-block" style="margin-top: 0;">
+                <div class="img-comparison-container" style="height: 300px;">
+                  <div class="img-wrapper before-image">
+                    <img src="assets/gallery/slider_2_rgb.png" alt="RGB">
+                  </div>
+                  <div class="img-wrapper after-image">
+                    <img src="assets/gallery/slider_2_pose.png" alt="Pose Overlay">
+                  </div>
+                  <div class="slider-handle">
+                    <i class="fa-solid fa-arrows-left-right"></i>
+                  </div>
+                </div>
+                 <p style="margin-top: 1rem; color: var(--text-muted);">Case 2: Multiple Instances</p>
+            </div>
+
+            <!-- Comparison 3 -->
+             <div class="comparison-block" style="margin-top: 0;">
+                <div class="img-comparison-container" style="height: 300px;">
+                  <div class="img-wrapper before-image">
+                    <img src="assets/gallery/slider_3_rgb.png" alt="RGB">
+                  </div>
+                  <div class="img-wrapper after-image">
+                    <img src="assets/gallery/slider_3_pose.png" alt="Pose Overlay">
+                  </div>
+                  <div class="slider-handle">
+                    <i class="fa-solid fa-arrows-left-right"></i>
+                  </div>
+                </div>
+                 <p style="margin-top: 1rem; color: var(--text-muted);">Case 3: Cluttered scenes</p>
             </div>
           </div>
         </div>
@@ -258,7 +381,7 @@
             <pre><code id="bibtex">@inproceedings{sapoutzoglou2026industryshapes,
   title={IndustryShapes: An RGB-D Benchmark dataset for 6D object pose estimation of industrial assembly components and tools},
   author={Sapoutzoglou, Panagiotis and Vaggelis, Orestis and Zacharia, Athina and Sartinas, Evangelos and Pateraki, Maria},
-  booktitle={IEEE International Conference on Robotics and Automation (ICRA)},
+  booktitle={ArXiv}, <!-- TODO: IEEE International Conference on Robotics and Automation (ICRA) -->
   year={2026}
 }</code></pre>
           </div>
